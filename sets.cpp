@@ -96,7 +96,54 @@ class MySet{
 		}
 		return temp;
 	}
-
+	MySet operator ^ (MySet &obj){
+		MySet temp;
+		int m=0;
+		temp.cardinality = 0;
+		for(int i=0;i<this->cardinality;i++){
+			int flag = 0;
+			for(int j=0;j<obj.cardinality;j++){
+				if(this->set[i] == obj.set[j]){
+					flag=1;
+				}
+			}
+			if(flag==0){
+				temp.cardinality++;
+				temp.set[m++] = this->set[i];
+			}
+		}
+		for(int i=0;i<obj.cardinality;i++){
+			int flag = 0;
+			for(int j=0;j<this->cardinality;j++){
+				if(obj.set[i] == this->set[j]){
+					flag=1;
+				}
+			}
+			if(flag==0){
+				temp.cardinality++;
+				temp.set[m++] = obj.set[i];
+			}
+		}
+		return temp;
+	}
+	void operator = (MySet &obj){
+		this->cardinality = obj.cardinality;
+		for(int i=0;i<obj.cardinality;i++){
+			this->set[i] = obj.set[i];
+		}
+	}
+	bool operator == (MySet &obj){
+		if(this->cardinality == obj.cardinality){
+			for(int i=0;i<obj.cardinality;i++){
+				if(this->set[i]!=obj.set[i]){
+					return false;
+				}
+			}
+			return true;
+		}
+		
+		return false;
+	}
 };
 int main(){
 	MySet m1,m2;
@@ -108,24 +155,31 @@ int main(){
 	m1.print();
 	cout<<"\nSet 2 : ";
 	m2.print();
-	MySet Union,intersection,difference,Symmetric_difference;
-	Union = m1 + m2;
+//	MySet intersection,difference,Symmetric_difference;
+	MySet Union = m1 + m2;
 	cout<<"\nUnion Of Set 1 And Set 2 : ";
 	Union.print();
 	
-	intersection = m1 * m2;
+	MySet intersection = m1 * m2;
 	cout<<"\nIntersection Of Set 1 And Set 2 : ";
 	intersection.print();
 	
-	difference = m1 - m2;
+	MySet difference = m1 - m2;
 	cout<<"\nDifference Of Set 1 And Set 2 : ";
 	difference.print();
 	
-//	Symmetric_difference = m1 ^ m2;
-//	cout<<"\nDifference Of Set 1 And Set 2 : ";
-//	Symmetric_difference.print();
+	MySet Symmetric_difference = m1 ^ m2;
+	cout<<"\nSymmetric Difference Of Set 1 And Set 2 : ";
+	Symmetric_difference.print();
 	
-//	MySet arif;
-//	cout<<arif.cardinality;
+	MySet m3;
+	m3 = m1;
+	m3.print();
+	if(m3==m2){
+		cout<<"These Are Equal";
+	}else{
+		cout<<"Not Equal";
+	}
+
 	return 0;
 }

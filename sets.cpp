@@ -65,8 +65,8 @@ class MySet{
 		temp.rm_duplicate();
 		return temp;
 	}
-	MySet operator * (MySet &obj){
-		MySet temp;
+	MySet<T> operator * (MySet &obj){
+		MySet<T> temp;
 		int m=0;
 		temp.cardinality = 0;
 		for(int i=0;i<this->cardinality;i++){
@@ -80,7 +80,7 @@ class MySet{
 		}
 		return temp;
 	}
-	MySet operator - (MySet &obj){
+	MySet<T> operator - (MySet &obj){
 		MySet temp;
 		int m=0;
 		temp.cardinality = 0;
@@ -98,7 +98,7 @@ class MySet{
 		}
 		return temp;
 	}
-	MySet operator ^ (MySet &obj){
+	MySet<T> operator ^ (MySet &obj){
 		MySet temp;
 		int m=0;
 		temp.cardinality = 0;
@@ -168,10 +168,13 @@ void initialization(){
 		set_B.print();
 		
 		cout<<"\n------------Operations on sets----------";
-		cout<<"\n1. Union of two sets :-\n";
-		cout<<"\n2. Intersection of two sets :-\n";
-		cout<<"\n3. Difference of two sets :-\n";
-		cout<<"\n4. Symmetric Difference of two sets :-\n";
+		cout<<"\n1. Union of two sets\n";
+		cout<<"\n2. Intersection of two sets\n";
+		cout<<"\n3. Difference of two sets \n";
+		cout<<"\n4. Symmetric Difference of two sets \n";
+		cout<<"\n5. Check The Equality Of The Sets \n";
+		cout<<"\n6. Generate Power Set \n";
+		cout<<"\n7. Get Cardinality \n";
 		cout<<"-----------------------------------------";
 		cout<<"\nEnter Choice : ";
 		cin>>choice;
@@ -201,12 +204,15 @@ void initialization(){
 				symmetric_difference.print();
 				break;
 			}
-//			case 5:{
-//				MySet<Y> intersection = set_A ^ set_B;
-//				cout<<"Intersection of Set A and Set B : ";
-//				intersection.print();
-//				break;
-//			}
+			case 5:{
+				MySet<Y> intersection = set_A ^ set_B;
+				if(set_A == set_B){
+					cout<<"Both Sets Are Equal";
+				}else{
+					cout<<"Sets Are Not Equal";
+				}
+				break;
+			}
 		}
 		cout<<"\n\nDo You Want To Continue(y/n) : ";
 		cin>>ch;
@@ -215,31 +221,7 @@ void initialization(){
 	
 }
 int main(){
-//	MySet m1,m2;
-//	cout<<"Enter Info of set 1 :-\n";
-//	m1.input();
-//	cout<<"\nEnter Info of set 2 :-\n";
-//	m2.input();
-//	cout<<"Set 1 : ";
-//	m1.print();
-//	cout<<"\nSet 2 : ";
-//	m2.print();
-////	MySet intersection,difference,Symmetric_difference;
-//	MySet Union = m1 + m2;
-//	cout<<"\nUnion Of Set 1 And Set 2 : ";
-//	Union.print();
-//	
-//	MySet intersection = m1 * m2;
-//	cout<<"\nIntersection Of Set 1 And Set 2 : ";
-//	intersection.print();
-//	
-//	MySet difference = m1 - m2;
-//	cout<<"\nDifference Of Set 1 And Set 2 : ";
-//	difference.print();
-//	
-//	MySet Symmetric_difference = m1 ^ m2;
-//	cout<<"\nSymmetric Difference Of Set 1 And Set 2 : ";
-//	Symmetric_difference.print();
+	
 	int choice=0;
 	start:
 	cout<<"1-> int type\n";

@@ -81,7 +81,7 @@ class MySet{
 		return temp;
 	}
 	MySet<T> operator - (MySet &obj){
-		MySet temp;
+		MySet<T> temp;
 		int m=0;
 		temp.cardinality = 0;
 		for(int i=0;i<this->cardinality;i++){
@@ -98,36 +98,12 @@ class MySet{
 		}
 		return temp;
 	}
-	MySet<T> operator ^ (MySet &obj){
-		MySet temp;
-		int m=0;
-		temp.cardinality = 0;
-		for(int i=0;i<this->cardinality;i++){
-			int flag = 0;
-			for(int j=0;j<obj.cardinality;j++){
-				if(this->set[i] == obj.set[j]){
-					flag=1;
-				}
-			}
-			if(flag==0){
-				temp.cardinality++;
-				temp.set[m++] = this->set[i];
-			}
-		}
-		for(int i=0;i<obj.cardinality;i++){
-			int flag = 0;
-			for(int j=0;j<this->cardinality;j++){
-				if(obj.set[i] == this->set[j]){
-					flag=1;
-				}
-			}
-			if(flag==0){
-				temp.cardinality++;
-				temp.set[m++] = obj.set[i];
-			}
-		}
+	MySet<T> operator ^ (MySet obj){
+		MySet<T> Union1 = *this + obj;
+		MySet<T> Intersection1 = *this * obj;
+		MySet<T> temp = Union1 - Intersection1;
 		return temp;
-	}
+ 	}
 	void operator = (MySet &obj){
 		this->cardinality = obj.cardinality;
 		for(int i=0;i<obj.cardinality;i++){
@@ -145,6 +121,27 @@ class MySet{
 		}
 		
 		return false;
+	}
+	void powerset() const
+	{
+		cout<<"The power set is : {";
+		for(int i=0;i<pow(2,this->cardinality);i++)
+		{
+			cout<<"{";
+			for(int t=i,j=0;j<this->cardinality;j++)
+			{
+				if(t&1)
+				{
+					cout<<set[j];
+				}
+				t=t>>1;
+				
+			}
+			cout<<"}";
+			cout<<((i<pow(2,this->cardinality)-1)?',':'}');
+		}
+		cout<<"\n";
+		cout<<"\nThe cardianality of power se is: "<<pow(2,this->cardinality);	
 	}
 };
 template <typename Y>
@@ -205,7 +202,6 @@ void initialization(){
 				break;
 			}
 			case 5:{
-				MySet<Y> intersection = set_A ^ set_B;
 				if(set_A == set_B){
 					cout<<"Both Sets Are Equal";
 				}else{
@@ -213,6 +209,26 @@ void initialization(){
 				}
 				break;
 			}
+			
+			case 6:{
+				chooseagain:
+				system("CLS");
+				int subchoice;
+				cout<<"1. power set of Set A \n";
+				cout<<"2. power set of Set B \n";
+				cout<<"Choose An Option : ";
+				cin>>subchoice;
+				if(subchoice == 1){
+					set_A.powerset();
+				}else if(subchoice == 2){
+					set_B.powerset();
+				}else{
+					cout<<"Wrong choice choose again \n";
+					goto chooseagain;
+				}
+				break;
+			}
+			
 		}
 		cout<<"\n\nDo You Want To Continue(y/n) : ";
 		cin>>ch;
